@@ -98,7 +98,7 @@ button:active{transform:translateY(5px);box-shadow:0 3px 0 #a86400,0 8px 18px rg
 }
 @keyframes road{to{background-position:-140px 0}}
 .runner{position:absolute;top:42%;font-size:74px;z-index:3;animation:runbob .28s ease-in-out infinite alternate}
-.panda{left:33%}.monster{left:8%;filter:drop-shadow(0 0 20px #ff6b9d)}
+.hero{left:33%}.monster{left:8%;filter:drop-shadow(0 0 20px #ff6b9d)}
 @keyframes runbob{to{transform:translateY(-10px)}}
 .distance{
   position:absolute;top:84px;left:50%;transform:translateX(-50%);
@@ -123,9 +123,9 @@ button:active{transform:translateY(5px);box-shadow:0 3px 0 #a86400,0 8px 18px rg
 }
 .chaseDanger.on{opacity:1;animation:redPulse .45s infinite alternate}
 @keyframes redPulse{to{opacity:.55}}
-.panda,.monster{transition:left .35s linear,transform .15s}
+.hero,.monster{transition:left .35s linear,transform .15s}
 .monster.close{filter:drop-shadow(0 0 26px #ff365c);transform:scale(1.15)}
-.panda.scared{filter:drop-shadow(0 0 18px #ffd166)}
+.hero.scared{filter:drop-shadow(0 0 18px #ffd166)}
 .spaceBar{
   position:absolute;top:84px;left:50%;transform:translateX(-50%);
   width:min(560px,76vw);height:26px;border-radius:99px;
@@ -206,7 +206,7 @@ button:active{transform:translateY(5px);box-shadow:0 3px 0 #a86400,0 8px 18px rg
     <div class="sub" id="gradeNote">请选择要挑战的关卡！</div>
     <div class="map">
       <div class="card forest" onclick="startLevel(1)"><h2>第一关</h2><p>输入拼音，让气球飞走！</p><div class="emoji">🎈</div></div>
-      <div class="card maze" onclick="startLevel(2)"><h2>第二关</h2><p>快帮助拼拼熊逃离小怪！</p><div class="emoji">🐼👾</div></div>
+      <div class="card maze" onclick="startLevel(2)"><h2>第二关</h2><p>快帮助小英雄逃离小怪！</p><div class="emoji">🦸👾</div></div>
       <div class="card space" onclick="startLevel(3)"><h2>第三关</h2><p>打出拼音，保护火箭！</p><div class="emoji">🚀</div></div>
     </div>
     <div class="btnrow" style="margin-top:22px"><button class="smallbtn" onclick="go('start')">返回</button><button class="smallbtn ghostBtn" onclick="showReport()">查看学习报告</button></div>
@@ -486,7 +486,7 @@ function renderScene(n){
   if(n===1){
     scene.innerHTML='<div class="hill"></div><div class="tree" style="left:8%">🌳</div><div class="tree" style="left:76%">🌲</div><div class="butterfly" style="top:28%;animation-delay:-2s">🦋</div><div class="butterfly" style="top:42%;animation-delay:-5s">🐦</div><div class="balloon"><div class="char" id="balloonChar"></div></div>';
   }else if(n===2){
-    scene.innerHTML='<div class="chaseDanger" id="chaseDanger"></div><div class="mazePath"></div><div class="runner monster" id="monster">👾</div><div class="runner panda" id="panda">🐼</div><div class="chaseLabel" id="chaseLabel">距离安全</div>';
+    scene.innerHTML='<div class="chaseDanger" id="chaseDanger"></div><div class="mazePath"></div><div class="runner monster" id="monster">👾</div><div class="runner hero" id="hero">🦸</div><div class="chaseLabel" id="chaseLabel">距离安全</div>';
   }else{
     scene.innerHTML='<div class="spaceBar" id="spaceBar"><div></div></div><div class="spaceLabel" id="spaceLabel">陨石还很远</div><div class="laser" id="laser"></div><div class="rocket">🚀</div><div class="meteor" id="meteor">☄️</div><div class="warning" id="spaceWarning" style="display:none">小心陨石！</div>';
   }
@@ -523,16 +523,16 @@ function updateChase(){
   const percent=Math.max(0,Math.min(1,time/maxTime));
   const bar=$('distance')?.querySelector('div');
   if(bar) bar.style.width=(percent*100)+'%';
-  const monster=$('monster'), panda=$('panda'), danger=$('chaseDanger'), label=$('chaseLabel'), dist=$('distance');
-  if(monster&&panda){
+  const monster=$('monster'), hero=$('hero'), danger=$('chaseDanger'), label=$('chaseLabel'), dist=$('distance');
+  if(monster&&hero){
     const monsterLeft=8+(1-percent)*19;
-    const pandaLeft=33;
+    const heroLeft=33;
     monster.style.left=monsterLeft+'%';
-    panda.style.left=pandaLeft+'%';
-    const gap=pandaLeft-monsterLeft;
+    hero.style.left=heroLeft+'%';
+    const gap=heroLeft-monsterLeft;
     const isDanger=gap<10;
     monster.classList.toggle('close',isDanger);
-    panda.classList.toggle('scared',isDanger);
+    hero.classList.toggle('scared',isDanger);
     danger?.classList.toggle('on',isDanger);
     dist?.classList.toggle('dangerBar',isDanger);
     if(label){
@@ -674,7 +674,7 @@ function successFx(){
   beep(720,90,'sine'); setTimeout(()=>beep(1040,90,'sine'),90);
   if(level===2){
     time=Math.min(maxTime,time+2);$('time').textContent=time;updateChase();
-    const panda=$('panda'); if(panda){panda.style.transform='translateX(38px) translateY(-10px) scale(1.08)';setTimeout(()=>panda.style.transform='',220)}
+    const hero=$('hero'); if(hero){hero.style.transform='translateX(38px) translateY(-10px) scale(1.08)';setTimeout(()=>hero.style.transform='',220)}
     toast('冲刺！ '+current.tone);
   }else if(level===3){
     fireLaser();time=Math.min(maxTime,time+2);$('time').textContent=time;updateSpace();toast('打掉陨石！ '+current.tone);
