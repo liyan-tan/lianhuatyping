@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>我是打字英雄 | I'm a Typing Hero</title>
+<title>拼拼熊大冒险 | PinPin Panda</title>
 <style>
 :root{
   --gold:#ffd166;--cyan:#66e3ff;--pink:#ff6b9d;--green:#7ee081;--dark:#071026;
@@ -194,9 +194,9 @@ button:active{transform:translateY(5px);box-shadow:0 3px 0 #a86400,0 8px 18px rg
     <div class="btnrow">
       <button onclick="showMap('P1')">一年级冒险</button>
       <button onclick="showMap('P2')">二年级冒险</button>
-      <button onclick="showMap('P3')">三年级冒险（soon）</button>
+      <button onclick="showMap('P3')">三年级冒险</button>
     </div>
-    <div class="notice">准备好了吗？挑战现在开始！</div>
+    <div class="notice">准备好了吗？我们一起出发！</div>
   </div>
 </section>
 
@@ -369,6 +369,37 @@ const wordBanks = {
   {h:"你去排队我去找座位",k:"niqupaiduiwoquzhaozuowei",tone:"nǐ qù pái duì, wǒ qù zhǎo zuò wèi"}
     ]
   }
+  ,
+  P3: {
+    single: [
+      {h:"睡",k:"shui",tone:"shuì"},
+      {h:"觉",k:["jiao","jue"],tone:"jiào / jué"},
+      {h:"帮",k:"bang",tone:"bāng"},
+      {h:"聪",k:"cong",tone:"cōng"},
+      {h:"爬",k:"pa",tone:"pá"},
+      {h:"谢",k:"xie",tone:"xiè"},
+      {h:"服",k:"fu",tone:"fú"},
+      {h:"汗",k:"han",tone:"hàn"},
+      {h:"彩",k:"cai",tone:"cǎi"},
+      {h:"晚",k:"wan",tone:"wǎn"}
+    ],
+    phrase: [
+      {h:"睡觉",k:"shuijiao",tone:"shuì jiào"},
+      {h:"知道",k:"zhidao",tone:"zhī dào"},
+      {h:"相信",k:"xiangxin",tone:"xiāng xìn"},
+      {h:"开始",k:"kaishi",tone:"kāi shǐ"},
+      {h:"神童",k:"shentong",tone:"shén tóng"},
+      {h:"电脑",k:"diannao",tone:"diàn nǎo"},
+      {h:"吸管",k:"xiguan",tone:"xī guǎn"}
+    ],
+    sentence: [
+      {h:"我的水壶有吸管",k:"wodeshuihuyouxiguan",tone:"wǒ de shuǐ hú yǒu xī guǎn"},
+      {h:"我们开始上课了",k:"womenkaishishangkele",tone:"wǒ men kāi shǐ shàng kè le"},
+      {h:"我相信你会成功",k:"woxiangxinnihuichenggong",tone:"wǒ xiāng xìn nǐ huì chéng gōng"},
+      {h:"姐姐用电脑做功课",k:"jiejieyongdiannaozuogongke",tone:"jiě jie yòng diàn nǎo zuò gōng kè"}
+    ]
+  }
+
 };
 
 let grade="P1", level=1, current=null, score=0, time=10, maxTime=10, timer=null;
@@ -377,7 +408,8 @@ let records=[], correctCount=0, wrongCount=0, totalCount=0;
 
 const config = {
   P1:{level1:10,level2:8,level3:5},
-  P2:{level1:10,level2:10,level3:6}
+  P2:{level1:10,level2:10,level3:6},
+  P3:{level1:10,level2:10,level3:8}
 };
 const $=id=>document.getElementById(id);
 
